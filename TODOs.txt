@@ -1,0 +1,20 @@
+TODOs
+- Crear Clases
+- Manejo de excepciones
+- Registros(Materiales, Estudiantes)
+- Serializar
+- Archivos(Lectura, Guardado)
+- Prestamos(Escritura)
+- Devoluciones(Escritura)
+- Multas
+- Manejo de fechas(String)
+- Manejo de inventario(Revisar cantidades y estados)
+- Revision de registro de estudiante
+- Interfaz(Busquedas, )
+- Trabajo Escrito(descripcion, pantallazos, paquetes)
+- Extra (COnfiguraciones, Login)
+- XML 
+
+Working
+
+Done
