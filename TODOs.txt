@@ -10,7 +10,7 @@ TODOs
 - Manejo de fechas(String)
 - Manejo de inventario(Revisar cantidades y estados)
 - Revision de registro de estudiante
-- Interfaz(Busquedas, )
+- Interfaz(Busquedas, Ventanas)
 - Trabajo Escrito(descripcion, pantallazos, paquetes)
 - Extra (COnfiguraciones, Login)
 - XML 
