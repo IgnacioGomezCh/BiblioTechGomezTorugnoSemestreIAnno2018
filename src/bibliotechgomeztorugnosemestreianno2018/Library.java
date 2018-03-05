@@ -9,6 +9,6 @@ package bibliotechgomeztorugnosemestreianno2018;
  *
  * @author Jtoru1
  */
-public class Biblioteca {
+public class Library {
     
 }
