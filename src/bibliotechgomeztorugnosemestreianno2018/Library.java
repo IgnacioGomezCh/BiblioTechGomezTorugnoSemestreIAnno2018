@@ -62,6 +62,22 @@ public class Library {
     }
     
     //Methods
+    public boolean addAsset(Asset myAsset){
+        try{
+            assetList.add(myAsset);
+            return true;
+        }catch(Exception e){
+            return false;
+        }
+    }
     
+    public boolean addStudent(Student myStudent){
+        try{
+            studentList.add(myStudent);
+            return true;
+        }catch(Exception e){
+            return false;
+        }
+    }
     
 }
