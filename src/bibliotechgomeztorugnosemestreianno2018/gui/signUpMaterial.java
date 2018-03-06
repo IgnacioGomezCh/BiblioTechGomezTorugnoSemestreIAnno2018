@@ -7,7 +7,9 @@ package bibliotechgomeztorugnosemestreianno2018.gui;
 
 import bibliotechgomeztorugnosemestreianno2018.Audiovisual;
 import bibliotechgomeztorugnosemestreianno2018.Book;
+import bibliotechgomeztorugnosemestreianno2018.Library;
 import bibliotechgomeztorugnosemestreianno2018.Student;
+import com.sun.glass.events.KeyEvent;
 
 /**
  *
@@ -18,17 +20,14 @@ public class signUpMaterial extends javax.swing.JFrame {
     /**
      * Creates new form signUpMaterial
      */
+    public static int id ;
+
+    public static void setId(int id) {
+        signUp.id = id;
+    }
     public signUpMaterial() {
-        Book myBook1 = new Book("Introduccion a la Programacion", "IV", "X-6515618", 1, "free", "*", "*");
-        Book myBook2 = new Book("Introduccion a la Programacion", "IV", "X-6515618", 2, "lent", "18/02/2018", "30/02/2018");
-        Book myBook3 = new Book("Programacion Funcional", "I", "X-2352538", 3, "free", "*", "*");
-        Audiovisual myAV = new Audiovisual(185, "DELL Projector", 4, "lent", "15/02/2018", "19/02/2018");
         
-        Student myStudent1 = new Student("Ignacio", "251554", "abcd1234", 0);
-        Student myStudent2 = new Student("Josue", "4545", "abcd1234", 0);
         
-        myStudent1.bookAsset(myAV);
-        myStudent2.bookAsset(myBook2);
         initComponents();
     }
 
@@ -75,6 +74,11 @@ public class signUpMaterial extends javax.swing.JFrame {
         });
 
         jButton4.setText("Back");
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -124,11 +128,27 @@ public class signUpMaterial extends javax.swing.JFrame {
 
         jLabel4.setText("Code");
 
+        jTextField4.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jTextField4KeyTyped(evt);
+            }
+        });
+
         jLabel5.setText("Model");
 
         jButton1.setText("Register");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         jButton2.setText("Back");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -184,42 +204,64 @@ public class signUpMaterial extends javax.swing.JFrame {
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // TODO add your handling code here:
+        //Get the info of the fields
+        String title = jTextField1.getText();
+        String edition = jTextField2.getText();
+        String ISBN = jTextField3.getText();
+        int ID = id;
+        Book newBook = new Book(title,edition,ISBN,ID,"free","*","*");
+        //Acess the global object and add new Book 
+        logIn allObject = new logIn();
+        Library lb = allObject.biblioTech;
+        lb.addAsset(newBook);
+        //Set a new id
+        setId(ID+1);
     }//GEN-LAST:event_jButton3ActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(signUpMaterial.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(signUpMaterial.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(signUpMaterial.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(signUpMaterial.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new signUpMaterial().setVisible(true);
-            }
-        });
+    private void jTextField4KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField4KeyTyped
+        // TODO add your handling code here:
+        //Only puts Numbers in the Text Field
+        char vchar = evt.getKeyChar();
+        if(!(Character.isDigit(vchar))
+            ||(vchar == KeyEvent.VK_BACKSPACE)
+            || (vchar == KeyEvent.VK_DELETE)){
+        evt.consume();
     }
+        //Only 5 number code
+        if(jTextField4.getText().length()>=5){
+            evt.consume();
+        }
+    }//GEN-LAST:event_jTextField4KeyTyped
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        // TODO add your handling code here:
+        dispose();
+    }//GEN-LAST:event_jButton4ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+        dispose();
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        //Get the info of the fields
+        int code = Integer.parseInt(jTextField4.getText());
+        String model= jTextField5.getText();
+        int ID = id;
+        Audiovisual newVisual = new Audiovisual(code,model,ID,"free","*","*");
+        //Acess the global object and add new Audiovisual
+        logIn allObject = new logIn();
+        Library lb = allObject.biblioTech;
+        lb.addAsset(newVisual);
+        //Set a new id
+        setId(ID+1);
+        
+        
+        
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
