@@ -5,11 +5,21 @@
  */
 package bibliotechgomeztorugnosemestreianno2018.gui;
 
+import bibliotechgomeztorugnosemestreianno2018.Library;
+import bibliotechgomeztorugnosemestreianno2018.Student;
+import com.sun.glass.events.KeyEvent;
+
 /**
  *
  * @author Jtoru1
  */
 public class signUp extends javax.swing.JFrame {
+    
+    public static int id ;
+
+    public static void setId(int id) {
+        signUp.id = id;
+    }
 
     /**
      * Creates new form signUp
@@ -43,7 +53,7 @@ public class signUp extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Computación", "Macatrónica", "Electrónica" }));
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Computación", "Mecatrónica", "Electrónica" }));
 
         jLabel1.setText("Career");
 
@@ -73,6 +83,11 @@ public class signUp extends javax.swing.JFrame {
         });
 
         jButton2.setText("Back");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -133,6 +148,15 @@ public class signUp extends javax.swing.JFrame {
 
     private void jTextField1KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField1KeyTyped
         // TODO add your handling code here:
+        
+        //Only puts Numbers in the Text Field
+        char vchar = evt.getKeyChar();
+        if(!(Character.isDigit(vchar))
+            ||(vchar == KeyEvent.VK_BACKSPACE)
+            || (vchar == KeyEvent.VK_DELETE)){
+        evt.consume();
+    }
+        //Only 5 number code
         if(jTextField1.getText().length()>=5){
             evt.consume();
         }
@@ -144,42 +168,39 @@ public class signUp extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
+        String nameField = jTextField1.getText();
+        char[] arrayC = jPasswordField1.getPassword();
+        String passField = new String(arrayC) ;
+        //Get the career for a code to reister the Student
+        String career="c";
+        if(jComboBox1.getSelectedItem().toString()== "Computación"){
+            career = "c";
+        }
+        if(jComboBox1.getSelectedItem().toString()== "Mecatrónica"){
+            career = "m";
+            
+        }
+        if(jComboBox1.getSelectedItem().toString()== "Electrónica"){
+            career = "e";
+        }
+        String code = career+jTextField1.getText();
+        System.out.println(code);
+        System.out.println(passField);
+        //Create a new Student Object
+        Student newStudent = new Student(nameField,code,passField,0);
+        //Acess the global object and add new Student 
+        logIn allObject = new logIn();
+        Library lb = allObject.biblioTech;
+        lb.addStudent(newStudent);
+        
     }//GEN-LAST:event_jButton1ActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(signUp.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(signUp.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(signUp.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(signUp.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+        dispose();
+    }//GEN-LAST:event_jButton2ActionPerformed
 
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new signUp().setVisible(true);
-            }
-        });
-    }
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup buttonGroup1;

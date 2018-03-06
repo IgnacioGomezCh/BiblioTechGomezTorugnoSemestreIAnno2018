@@ -7,7 +7,10 @@ package bibliotechgomeztorugnosemestreianno2018.gui;
 
 import bibliotechgomeztorugnosemestreianno2018.Audiovisual;
 import bibliotechgomeztorugnosemestreianno2018.Book;
+import bibliotechgomeztorugnosemestreianno2018.Library;
 import bibliotechgomeztorugnosemestreianno2018.Student;
+import java.util.ArrayList;
+import java.util.Iterator;
 
 /**
  *
@@ -18,7 +21,11 @@ public class logIn extends javax.swing.JFrame {
     /**
      * Creates new form logIn
      */
+    public static Library biblioTech = new Library("BiblioTech",1); 
+    
     public logIn() {
+        //Test Objects
+        
         Book myBook1 = new Book("Introduccion a la Programacion", "IV", "X-6515618", 1, "free", "*", "*");
         Book myBook2 = new Book("Introduccion a la Programacion", "IV", "X-6515618", 2, "lent", "18/02/2018", "30/02/2018");
         Book myBook3 = new Book("Programacion Funcional", "I", "X-2352538", 3, "free", "*", "*");
@@ -29,7 +36,17 @@ public class logIn extends javax.swing.JFrame {
         
         myStudent1.bookAsset(myAV);
         myStudent2.bookAsset(myBook2);
+        biblioTech.addStudent(myStudent2);
+        biblioTech.addStudent(myStudent1);
+        biblioTech.addAsset(myAV);
+        biblioTech.addAsset(myBook1);
+        biblioTech.addAsset(myBook3);
+        
+        
+        
+        
         initComponents();
+        setLocationRelativeTo(null);
     }
 
     /**
@@ -61,8 +78,18 @@ public class logIn extends javax.swing.JFrame {
         });
 
         jButton1.setText("Login");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         jButton2.setText("SignUp");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         jButton3.setText("Material");
         jButton3.addActionListener(new java.awt.event.ActionListener() {
@@ -118,7 +145,48 @@ public class logIn extends javax.swing.JFrame {
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // TODO add your handling code here:
+        //Create the new window
+        signUpMaterial window1 = new signUpMaterial();
+        window1.setTitle("SignUpMaterials");
+        window1.setLocationRelativeTo(null);
+        window1.setVisible(true);
+        
     }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+        //Create the new window
+        signUp window = new signUp();
+        window.setTitle("SignUp");
+        window.setLocationRelativeTo(null);
+        window.setVisible(true);
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        //Do a boolan to know if is the correct user
+        boolean correctStudent= false;
+        String data= jTextField1.getText();
+        ArrayList<Student> emp = biblioTech.getStudentList();
+        
+        //Iterator with the Object Student
+        Iterator <Student> it =emp.iterator();
+        while(it.hasNext()){
+            Student e = it.next();
+            if(e.getID() == null ? data == null : e.getID().equals(data)){
+                correctStudent = true;
+            }
+        }
+        //If the Student is the true, open the new window
+        if(correctStudent==true){
+            lending window2 = new lending();
+            window2.setTitle("Lending");
+            window2.setLocationRelativeTo(null);
+            window2.setVisible(true);
+            dispose();
+            
+        }
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -151,6 +219,8 @@ public class logIn extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new logIn().setVisible(true);
+                
+                
             }
         });
     }

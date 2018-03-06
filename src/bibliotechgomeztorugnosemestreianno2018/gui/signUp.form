@@ -97,7 +97,7 @@
         <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
           <StringArray count="3">
             <StringItem index="0" value="Computaci&#xf3;n"/>
-            <StringItem index="1" value="Macatr&#xf3;nica"/>
+            <StringItem index="1" value="Mecatr&#xf3;nica"/>
             <StringItem index="2" value="Electr&#xf3;nica"/>
           </StringArray>
         </Property>
@@ -150,6 +150,9 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="Back"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton2ActionPerformed"/>
+      </Events>
     </Component>
   </SubComponents>
 </Form>
