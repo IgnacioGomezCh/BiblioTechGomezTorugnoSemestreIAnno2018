@@ -12,22 +12,32 @@ package bibliotechgomeztorugnosemestreianno2018;
 public class Asset {
     //Class atributes
     private final int ID;
+    private int FK_student;
     private String state, lentDate, returnDate;
     
     //blank constructor
     public Asset(){this.ID = -1;}
 
     //Normal constructor
-    public Asset(int ID, String state, String lentDate, String returnDate) {
+    public Asset(int ID, int FK_student, String state, String lentDate, String returnDate) {
         this.ID = ID;
+        this.FK_student = FK_student;
         this.state = state;
         this.lentDate = lentDate;
         this.returnDate = returnDate;
     }
     
     //Getters & Setters
-    public int getID() {
+    public int getID(){
         return ID;
+    }
+    
+    public int getFK_student() {
+        return FK_student;
+    }
+
+    public void setFK_student(int FK_student) {
+        this.FK_student = FK_student;
     }
 
     public String getState() {
@@ -53,4 +63,5 @@ public class Asset {
     public void setReturnDate(String returnDate) {
         this.returnDate = returnDate;
     }
+    
 }

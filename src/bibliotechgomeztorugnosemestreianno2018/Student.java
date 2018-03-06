@@ -15,7 +15,6 @@ public class Student {
     //Class attributes
     private String name, ID, password;
     private double pedingFine;
-    private ArrayList<Asset> assets = new ArrayList();
     
     //blank constructor
     public Student(){}    
@@ -61,19 +60,11 @@ public class Student {
     public void setPedingFine(double pedingFine) {
         this.pedingFine = pedingFine;
     }
-
-    public ArrayList<Asset> getAssets() {
-        return assets;
-    }
-
-    public void setAssets(ArrayList<Asset> assets) {
-        this.assets = assets;
-    }
     
         //Class methods
     public boolean bookAsset(Asset myAsset){
         try{
-            assets.add(myAsset);
+            //assets.add(myAsset);
             return true;
         }catch(Exception e){
             return false;
@@ -82,7 +73,7 @@ public class Student {
     
     public boolean returnAsset(Asset myAsset){
         try{
-            assets.remove(myAsset);
+            //assets.remove(myAsset);
             return true;
         }catch(Exception e){
             return false;

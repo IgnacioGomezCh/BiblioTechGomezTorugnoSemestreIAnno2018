@@ -25,7 +25,7 @@ public class Book extends Asset{
     
     //normal constructor
     public Book(String title, String edition, String ISBN, int ID, String state, String lentDate, String returnDate) {
-        super(ID, state, lentDate, returnDate);
+        super(ID, -1, state, lentDate, returnDate);
         this.title = title;
         this.edition = edition;
         this.ISBN = ISBN;

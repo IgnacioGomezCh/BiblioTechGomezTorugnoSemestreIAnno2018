@@ -25,7 +25,7 @@ public class Audiovisual extends Asset{
     
     //normal constructor
     public Audiovisual(int code, String model, int ID, String state, String lentDate, String returnDate) {
-        super(ID, state, lentDate, returnDate);
+        super(ID, -1, state, lentDate, returnDate);
         this.code = code;
         this.model = model;
     }
