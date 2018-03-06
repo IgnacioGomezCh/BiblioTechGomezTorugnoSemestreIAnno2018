@@ -5,6 +5,11 @@
  */
 package bibliotechgomeztorugnosemestreianno2018.gui;
 
+import bibliotechgomeztorugnosemestreianno2018.Audiovisual;
+import bibliotechgomeztorugnosemestreianno2018.Book;
+import bibliotechgomeztorugnosemestreianno2018.Library;
+import bibliotechgomeztorugnosemestreianno2018.Student;
+
 /**
  *
  * @author Jtoru1
@@ -14,7 +19,20 @@ public class lending extends javax.swing.JFrame {
     /**
      * Creates new form lending
      */
+    Library myLib;
     public lending() {
+        myLib = new Library("TEC", 1);
+        Book myBook1 = new Book("Introduccion a la Programacion", "IV", "X-6515618", 1, "free", "*", "*");
+        Book myBook2 = new Book("Introduccion a la Programacion", "IV", "X-6515618", 2, "lent", "18/02/2018", "30/02/2018");
+        Book myBook3 = new Book("Programacion Funcional", "I", "X-2352538", 3, "free", "*", "*");
+        Audiovisual myAV = new Audiovisual(185, "DELL Projector", 4, "lent", "15/02/2018", "19/02/2018");
+        
+        Student myStudent1 = new Student("Ignacio", "251554", "abcd1234", 0);
+        Student myStudent2 = new Student("Josue", "4545", "abcd1234", 0);
+        
+        myStudent1.bookAsset(myAV);
+        myStudent2.bookAsset(myBook2);
+        
         initComponents();
     }
 
