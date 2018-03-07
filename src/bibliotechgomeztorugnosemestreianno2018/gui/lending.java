@@ -100,7 +100,7 @@ public class lending extends javax.swing.JFrame {
                 int column = jTable1.columnAtPoint(e.getPoint());
                 if((row>-1)&&(column>-1)){
                     TableModel model123 = jTable1.getModel();
-                    selection = (Integer) model123.getValueAt(row, column);
+                    selection = Integer.valueOf(String.valueOf(model123.getValueAt(row, column)));
                     JOptionPane.showMessageDialog(null,model123.getValueAt(row, column));
                 }
             }
