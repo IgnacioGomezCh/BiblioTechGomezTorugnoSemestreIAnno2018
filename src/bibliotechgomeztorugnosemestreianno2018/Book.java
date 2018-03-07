@@ -25,7 +25,7 @@ public class Book extends Asset{
     
     //normal constructor
     public Book(String title, String edition, String ISBN, int ID, String state, String lentDate, String returnDate) {
-        super(ID, -1, state, lentDate, returnDate);
+        super(ID, "-1", state, lentDate, returnDate);
         this.title = title;
         this.edition = edition;
         this.ISBN = ISBN;
@@ -54,6 +54,29 @@ public class Book extends Asset{
 
     public void setISBN(String ISBN) {
         this.ISBN = ISBN;
+    }
+    
+    public String toString(){
+        return "Name: " + this.title + " - ID: " +
+                this.getID();
+    }
+    
+    /**
+     * metodo que me retorna el tamanno en bytes del objeto
+     * actual
+     * @return
+     */
+    public int size(){
+        //tamanno de las variables en bytes
+        //LONG: necesita dos bytes
+        //String: cada caracter necesita dos bytes de espacio,
+        //esto si se utiliza UTF
+        return this.getTitle().length() * 2 
+                + this.getEdition().length() * 2
+                + this.getState().length() * 2 
+                + this.getLentDate().length() * 2
+                + this.getReturnDate().length() * 2 
+                + this.getISBN().length() * 2 + 4 + 4 ;
     }
     
 }
