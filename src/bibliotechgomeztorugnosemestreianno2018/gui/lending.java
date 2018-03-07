@@ -11,13 +11,17 @@ import bibliotechgomeztorugnosemestreianno2018.Book;
 import bibliotechgomeztorugnosemestreianno2018.Library;
 import bibliotechgomeztorugnosemestreianno2018.Student;
 import com.sun.glass.events.KeyEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import javax.swing.ListModel;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
 
 /**
  *
@@ -29,6 +33,7 @@ public class lending extends javax.swing.JFrame {
     DefaultTableModel model11 = new DefaultTableModel();
     DefaultTableModel model12 = new DefaultTableModel();
     DefaultTableModel model13 = new DefaultTableModel();
+    private int selection;
     /**
      * Creates new form lending
      */
@@ -88,6 +93,35 @@ public class lending extends javax.swing.JFrame {
             }
             
         }
+        jTable1.addMouseListener(new MouseAdapter() 
+        {
+            public void mouseClicked(MouseEvent e){
+                int row = jTable1.rowAtPoint(e.getPoint());
+                int column = jTable1.columnAtPoint(e.getPoint());
+                if((row>-1)&&(column>-1)){
+                    TableModel model123 = jTable1.getModel();
+                    selection = (Integer) model123.getValueAt(row, column);
+                    JOptionPane.showMessageDialog(null,model123.getValueAt(row, column));
+                }
+            }
+
+
+        });
+        
+        ArrayList<Asset> myList = new ArrayList();
+        myList = lb.getAssetList();
+        for(Asset temp: myList){
+            if(temp instanceof Book && temp.getID() == selection){
+                Book myBook = (Book) temp;
+                myBook.setState("lent");
+                myBook.setLentDate("FECHA");
+                myBook.setReturnDate("FECHA");
+                lb.updateAsset(myBook);
+            }
+        }
+        
+        
+        
     }
 
     /**
@@ -324,7 +358,7 @@ public class lending extends javax.swing.JFrame {
                 .addContainerGap(156, Short.MAX_VALUE))
         );
 
-        jTabbedPane1.addTab("Devolution", jPanel3);
+        jTabbedPane1.addTab("Return", jPanel3);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
