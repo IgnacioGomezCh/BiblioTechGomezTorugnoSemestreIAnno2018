@@ -25,7 +25,7 @@ public class Audiovisual extends Asset{
     
     //normal constructor
     public Audiovisual(int code, String model, int ID, String state, String lentDate, String returnDate) {
-        super(ID, -1, state, lentDate, returnDate);
+        super(ID, "-1", state, lentDate, returnDate);
         this.code = code;
         this.model = model;
     }
@@ -47,6 +47,17 @@ public class Audiovisual extends Asset{
 
     public void setModel(String model) {
         this.model = model;
+    }
+    
+    public int size(){
+        //tamanno de las variables en bytes
+        //LONG: necesita dos bytes
+        //String: cada caracter necesita dos bytes de espacio,
+        //esto si se utiliza UTF
+        return this.getModel().length() * 2 
+                + this.getState().length() * 2 
+                + this.getLentDate().length() * 2
+                + this.getReturnDate().length() * 2 + 4 + 4 + 4;
     }
     
 }
