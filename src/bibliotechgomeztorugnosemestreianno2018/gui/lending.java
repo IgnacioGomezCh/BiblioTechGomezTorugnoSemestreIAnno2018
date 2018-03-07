@@ -100,7 +100,7 @@ public class lending extends javax.swing.JFrame {
                 int column = jTable1.columnAtPoint(e.getPoint());
                 if((row>-1)&&(column>-1)){
                     TableModel model123 = jTable1.getModel();
-                    selection = (Integer) model123.getValueAt(row, column);
+                    selection = Integer.valueOf(String.valueOf(model123.getValueAt(row, column)));
                     JOptionPane.showMessageDialog(null,model123.getValueAt(row, column));
                 }
             }
@@ -108,6 +108,7 @@ public class lending extends javax.swing.JFrame {
 
         });
         
+        /*
         ArrayList<Asset> myList = new ArrayList();
         myList = lb.getAssetList();
         for(Asset temp: myList){
@@ -119,9 +120,26 @@ public class lending extends javax.swing.JFrame {
                 lb.updateAsset(myBook);
             }
         }
+        */
+        test();
         
-        
-        
+    }
+    
+    public void test() throws IOException{
+        logIn allObject = new logIn();
+        Library lb = allObject.biblioTech;
+        ArrayList<Asset> myList = new ArrayList();
+        myList = lb.getAssetList();
+        for(Asset temp: myList){
+            if(temp instanceof Book && temp.getID() == 1){
+                Book myBook = (Book) temp;
+                myBook.setFK_student("c12345");
+                myBook.setState("lent");
+                myBook.setLentDate("FECHA");
+                myBook.setReturnDate("FECHA");
+                lb.updateAsset(myBook);
+            }
+        }
     }
 
     /**

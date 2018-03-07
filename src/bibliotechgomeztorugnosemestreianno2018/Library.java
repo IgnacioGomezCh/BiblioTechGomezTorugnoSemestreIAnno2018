@@ -158,10 +158,10 @@ public class Library {
     public boolean updateAsset(Asset myAsset){
         try{
             if(myAsset instanceof Book){
-                bookFile.putValue(myAsset.getID(), (Book) myAsset);
+                bookFile.putValue(myAsset.getID()-1, (Book) myAsset);
             }
             else{
-                avFile.putValue(myAsset.getID(), (Audiovisual) myAsset);
+                avFile.putValue(myAsset.getID()-1, (Audiovisual) myAsset);
             }
             return true;
         }catch(IOException e){
