@@ -79,4 +79,14 @@ public class Student {
             return false;
         }
     }
+    
+    public int size(){
+        //tamanno de las variables en bytes
+        //LONG: necesita dos bytes
+        //String: cada caracter necesita dos bytes de espacio,
+        //esto si se utiliza UTF
+        return this.getName().length() * 2 
+                + this.getID().length() * 2
+                + this.getPassword().length() * 2 + 8;
+    }
 }
