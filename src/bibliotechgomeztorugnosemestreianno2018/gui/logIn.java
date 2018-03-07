@@ -25,6 +25,10 @@ public class logIn extends javax.swing.JFrame {
      * Creates new form logIn
      */
     public static Library biblioTech;
+    public static String currentId;
+    public static void setcurrentId(String n) {
+        logIn.currentId = n;
+    }
     
     public logIn() throws IOException {
         //Test Objects
@@ -170,6 +174,7 @@ public class logIn extends javax.swing.JFrame {
                 } catch (IOException ex) {
                     Logger.getLogger(logIn.class.getName()).log(Level.SEVERE, null, ex);
                 }
+                setcurrentId(data);
                 window2.setTitle("Lending");
                 window2.setLocationRelativeTo(null);
                 window2.setVisible(true);
