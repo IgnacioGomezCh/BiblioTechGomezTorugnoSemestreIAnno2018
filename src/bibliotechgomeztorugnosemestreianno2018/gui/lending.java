@@ -131,7 +131,7 @@ public class lending extends javax.swing.JFrame {
         ArrayList<Asset> myList = new ArrayList();
         myList = lb.getAssetList();
         for(Asset temp: myList){
-            if(temp instanceof Book && temp.getID() == 1){
+            if(temp instanceof Book && temp.getID() == 0){
                 Book myBook = (Book) temp;
                 myBook.setState("lent");
                 myBook.setLentDate("FECHA");
