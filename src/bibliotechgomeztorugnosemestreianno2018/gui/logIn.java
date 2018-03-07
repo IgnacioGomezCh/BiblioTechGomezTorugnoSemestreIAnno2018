@@ -9,8 +9,11 @@ import bibliotechgomeztorugnosemestreianno2018.Audiovisual;
 import bibliotechgomeztorugnosemestreianno2018.Book;
 import bibliotechgomeztorugnosemestreianno2018.Library;
 import bibliotechgomeztorugnosemestreianno2018.Student;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -21,30 +24,11 @@ public class logIn extends javax.swing.JFrame {
     /**
      * Creates new form logIn
      */
-    public static Library biblioTech = new Library("BiblioTech",1); 
+    public static Library biblioTech;
     
-    public logIn() {
+    public logIn() throws IOException {
         //Test Objects
-        
-        Book myBook1 = new Book("Introduccion a la Programacion", "IV", "X-6515618", 1, "free", "*", "*");
-        Book myBook2 = new Book("Introduccion a la Programacion", "IV", "X-6515618", 2, "lent", "18/02/2018", "30/02/2018");
-        Book myBook3 = new Book("Programacion Funcional", "I", "X-2352538", 3, "free", "*", "*");
-        Audiovisual myAV = new Audiovisual(185, "DELL Projector", 4, "lent", "15/02/2018", "19/02/2018");
-        
-        Student myStudent1 = new Student("Ignacio", "251554", "abcd1234", 0);
-        Student myStudent2 = new Student("Josue", "4545", "abcd1234", 0);
-        
-        myStudent1.bookAsset(myAV);
-        myStudent2.bookAsset(myBook2);
-        biblioTech.addStudent(myStudent2);
-        biblioTech.addStudent(myStudent1);
-        biblioTech.addAsset(myAV);
-        biblioTech.addAsset(myBook1);
-        biblioTech.addAsset(myBook3);
-        
-        
-        
-        
+        biblioTech = new Library("BiblioTech",1);   
         initComponents();
         setLocationRelativeTo(null);
     }
@@ -61,7 +45,7 @@ public class logIn extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jTextField1 = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
+        btn_LoginMain = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
 
@@ -77,10 +61,10 @@ public class logIn extends javax.swing.JFrame {
             }
         });
 
-        jButton1.setText("Login");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btn_LoginMain.setText("Login");
+        btn_LoginMain.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btn_LoginMainActionPerformed(evt);
             }
         });
 
@@ -110,7 +94,7 @@ public class logIn extends javax.swing.JFrame {
                             .addComponent(jLabel1)
                             .addComponent(jLabel2)
                             .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jButton1))
+                            .addComponent(btn_LoginMain))
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jButton2)
@@ -128,7 +112,7 @@ public class logIn extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(48, 48, 48)
-                .addComponent(jButton1)
+                .addComponent(btn_LoginMain)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 47, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton2)
@@ -162,31 +146,41 @@ public class logIn extends javax.swing.JFrame {
         window.setVisible(true);
     }//GEN-LAST:event_jButton2ActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
-        //Do a boolan to know if is the correct user
-        boolean correctStudent= false;
-        String data= jTextField1.getText();
-        ArrayList<Student> emp = biblioTech.getStudentList();
-        
-        //Iterator with the Object Student
-        Iterator <Student> it =emp.iterator();
-        while(it.hasNext()){
-            Student e = it.next();
-            if(e.getID() == null ? data == null : e.getID().equals(data)){
-                correctStudent = true;
-            }
-        }
-        //If the Student is the true, open the new window
-        if(correctStudent==true){
-            lending window2 = new lending();
-            window2.setTitle("Lending");
-            window2.setLocationRelativeTo(null);
-            window2.setVisible(true);
-            dispose();
+    private void btn_LoginMainActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_LoginMainActionPerformed
+        try {
+            // TODO add your handling code here:
+            //Do a boolan to know if is the correct user
+            boolean correctStudent= false;
+            String data= jTextField1.getText();
+            ArrayList<Student> emp = biblioTech.getStudentList();
             
+            //Iterator with the Object Student
+            Iterator <Student> it =emp.iterator();
+            while(it.hasNext()){
+                Student e = it.next();
+                if(e.getID() == null ? data == null : e.getID().equals(data)){
+                    correctStudent = true;
+                }
+            }
+            //If the Student is the true, open the new window
+            if(correctStudent==true){
+                lending window2 = null;
+                try {
+                    window2 = new lending();
+                } catch (IOException ex) {
+                    Logger.getLogger(logIn.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                window2.setTitle("Lending");
+                window2.setLocationRelativeTo(null);
+                window2.setVisible(true);
+                dispose();
+                
+                
+            }
+        } catch (IOException ex) {
+            Logger.getLogger(logIn.class.getName()).log(Level.SEVERE, null, ex);
         }
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_btn_LoginMainActionPerformed
 
     /**
      * @param args the command line arguments
@@ -218,7 +212,11 @@ public class logIn extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new logIn().setVisible(true);
+                try {
+                    new logIn().setVisible(true);
+                } catch (IOException ex) {
+                    Logger.getLogger(logIn.class.getName()).log(Level.SEVERE, null, ex);
+                }
                 
                 
             }
@@ -226,7 +224,7 @@ public class logIn extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton btn_LoginMain;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;

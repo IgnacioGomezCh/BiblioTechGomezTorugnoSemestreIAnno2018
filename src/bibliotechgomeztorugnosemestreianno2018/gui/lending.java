@@ -11,8 +11,11 @@ import bibliotechgomeztorugnosemestreianno2018.Book;
 import bibliotechgomeztorugnosemestreianno2018.Library;
 import bibliotechgomeztorugnosemestreianno2018.Student;
 import com.sun.glass.events.KeyEvent;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.ListModel;
 import javax.swing.table.DefaultTableModel;
 
@@ -30,7 +33,7 @@ public class lending extends javax.swing.JFrame {
      * Creates new form lending
      */
     Library myLib;
-    public lending() {
+    public lending() throws IOException {
         
         
         initComponents();
@@ -358,7 +361,12 @@ public class lending extends javax.swing.JFrame {
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         // TODO add your handling code here:
-        logIn window1 = new logIn();
+        logIn window1 = null;
+        try {
+            window1 = new logIn();
+        } catch (IOException ex) {
+            Logger.getLogger(lending.class.getName()).log(Level.SEVERE, null, ex);
+        }
         window1.setTitle("logIn");
         window1.setLocationRelativeTo(null);
         window1.setVisible(true);
@@ -367,7 +375,12 @@ public class lending extends javax.swing.JFrame {
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
         // TODO add your handling code here:
-        logIn window1 = new logIn();
+        logIn window1 = null;
+        try {
+            window1 = new logIn();
+        } catch (IOException ex) {
+            Logger.getLogger(lending.class.getName()).log(Level.SEVERE, null, ex);
+        }
         window1.setTitle("logIn");
         window1.setLocationRelativeTo(null);
         window1.setVisible(true);
@@ -375,55 +388,75 @@ public class lending extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton5ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        // TODO add your handling code here:
-        model11.setRowCount(0);
-        this.jTable2.setModel(model11);
-        logIn allObject = new logIn();
-        Library lb = allObject.biblioTech;
-        ArrayList<Asset> array = lb.getAssetList();
-        
-        Iterator <Asset> it =array.iterator();
-        while(it.hasNext()){
-            Asset e = it.next();
-            if(e instanceof Audiovisual){
-                if(String.valueOf(((Audiovisual) e).getCode()) == null ? jTextField3.getText() == null : String.valueOf(((Audiovisual) e).getCode()).equals(jTextField3.getText())){
-                    String [] add1 = new String[2];
-                    add1[0]=String.valueOf(((Audiovisual) e).getCode());
-                    add1[1]=((Audiovisual) e).getModel();
-                    model11.addRow(add1);
-                }
+        try {                                         
+            // TODO add your handling code here:
+            model11.setRowCount(0);
+            this.jTable2.setModel(model11);
+            logIn allObject = null;
+            try {
+                allObject = new logIn();
+            } catch (IOException ex) {
+                Logger.getLogger(lending.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            Library lb = allObject.biblioTech;
+            ArrayList<Asset> array = lb.getAssetList();
             
+            Iterator <Asset> it =array.iterator();
+            while(it.hasNext()){
+                Asset e = it.next();
+                if(e instanceof Audiovisual){
+                    if(String.valueOf(((Audiovisual) e).getCode()) == null ? jTextField3.getText() == null : String.valueOf(((Audiovisual) e).getCode()).equals(jTextField3.getText())){
+                        String [] add1 = new String[2];
+                        add1[0]=String.valueOf(((Audiovisual) e).getCode());
+                        add1[1]=((Audiovisual) e).getModel();
+                        model11.addRow(add1);
+                    }
+                    
+                }
+                
             }
             
+            
+        } catch (IOException ex) {
+            Logger.getLogger(lending.class.getName()).log(Level.SEVERE, null, ex);
         }
         
         
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
-        model12.setRowCount(0);
-        this.jTable1.setModel(model12);
-        
-        logIn allObject = new logIn();
-        Library lb = allObject.biblioTech;
-        ArrayList<Asset> array = lb.getAssetList();
-        
-        Iterator <Asset> it =array.iterator();
-        while(it.hasNext()){
-            Asset e = it.next();
-            if(e instanceof Book){
-                if(((Book) e).getISBN() == null ? jTextField1.getText() == null : ((Book) e).getISBN().equals(jTextField1.getText())){
-                    String [] add = new String[4];
-                    add[0]=String.valueOf(e.getID());
-                    add[1]=((Book) e).getTitle();
-                    add[2]= ((Book) e).getEdition();
-                    add[3]=((Book) e).getISBN();
+        try {                                         
+            // TODO add your handling code here:
+            model12.setRowCount(0);
+            this.jTable1.setModel(model12);
             
-                    model12.addRow(add);
-                }
+            logIn allObject = null;
+            try {
+                allObject = new logIn();
+            } catch (IOException ex) {
+                Logger.getLogger(lending.class.getName()).log(Level.SEVERE, null, ex);
             }
+            Library lb = allObject.biblioTech;
+            ArrayList<Asset> array = lb.getAssetList();
             
+            Iterator <Asset> it =array.iterator();
+            while(it.hasNext()){
+                Asset e = it.next();
+                if(e instanceof Book){
+                    if(((Book) e).getISBN() == null ? jTextField1.getText() == null : ((Book) e).getISBN().equals(jTextField1.getText())){
+                        String [] add = new String[4];
+                        add[0]=String.valueOf(e.getID());
+                        add[1]=((Book) e).getTitle();
+                        add[2]= ((Book) e).getEdition();
+                        add[3]=((Book) e).getISBN();
+                        
+                        model12.addRow(add);
+                    }
+                }
+                
+            }
+        } catch (IOException ex) {
+            Logger.getLogger(lending.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 
@@ -444,32 +477,42 @@ public class lending extends javax.swing.JFrame {
     }//GEN-LAST:event_jTextField2KeyTyped
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        // TODO add your handling code here:
-        model13.setRowCount(0);
-        this.jTable1.setModel(model13);
-        logIn allObject = new logIn();
-        Library lb = allObject.biblioTech;
-        ArrayList<Asset> array = lb.getAssetList();
-        
-        Iterator <Asset> it =array.iterator();
-        while(it.hasNext()){
-            Asset e = it.next();
-            if(e instanceof Book){
-                //Convert to uper or lower case
-                String char1 = (jTextField2.getText()).toUpperCase();
-                String char2 = (jTextField2.getText()).toLowerCase();
-                String firstChar= String.valueOf(((Book) e).getTitle().charAt(0));
-                if((char1 == null ? firstChar == null : char1.equals(firstChar)) || char2==firstChar){
-                    String [] add = new String[4];
-                    add[0]=String.valueOf(e.getID());
-                    add[1]=((Book) e).getTitle();
-                    add[2]= ((Book) e).getEdition();
-                    add[3]=((Book) e).getISBN();
+        try {                                         
+            // TODO add your handling code here:
+            model13.setRowCount(0);
+            this.jTable1.setModel(model13);
+            logIn allObject = null;
+            try {
+                allObject = new logIn();
+            } catch (IOException ex) {
+                Logger.getLogger(lending.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            Library lb = allObject.biblioTech;
+            ArrayList<Asset> array = lb.getAssetList();
             
-                    model13.addRow(add);
+            Iterator <Asset> it =array.iterator();
+            while(it.hasNext()){
+                Asset e = it.next();
+                if(e instanceof Book){
+                    //Convert to uper or lower case
+                    String char1 = (jTextField2.getText()).toUpperCase();
+                    String char2 = (jTextField2.getText()).toLowerCase();
+                    String firstChar= String.valueOf(((Book) e).getTitle().charAt(0));
+                    if((char1 == null ? firstChar == null : char1.equals(firstChar)) || char2==firstChar){
+                        String [] add = new String[4];
+                        add[0]=String.valueOf(e.getID());
+                        add[1]=((Book) e).getTitle();
+                        add[2]= ((Book) e).getEdition();
+                        add[3]=((Book) e).getISBN();
+                        
+                        model13.addRow(add);
+                    }
                 }
+                
             }
             
+        } catch (IOException ex) {
+            Logger.getLogger(lending.class.getName()).log(Level.SEVERE, null, ex);
         }
         
     }//GEN-LAST:event_jButton2ActionPerformed

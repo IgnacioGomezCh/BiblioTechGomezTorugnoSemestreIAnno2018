@@ -8,6 +8,9 @@ package bibliotechgomeztorugnosemestreianno2018.gui;
 import bibliotechgomeztorugnosemestreianno2018.Library;
 import bibliotechgomeztorugnosemestreianno2018.Student;
 import com.sun.glass.events.KeyEvent;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -189,7 +192,12 @@ public class signUp extends javax.swing.JFrame {
         //Create a new Student Object
         Student newStudent = new Student(nameField,code,passField,0);
         //Acess the global object and add new Student 
-        logIn allObject = new logIn();
+        logIn allObject = null;
+        try {
+            allObject = new logIn();
+        } catch (IOException ex) {
+            Logger.getLogger(signUp.class.getName()).log(Level.SEVERE, null, ex);
+        }
         Library lb = allObject.biblioTech;
         lb.addStudent(newStudent);
         
