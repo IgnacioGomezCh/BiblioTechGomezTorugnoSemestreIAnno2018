@@ -10,6 +10,9 @@ import bibliotechgomeztorugnosemestreianno2018.Book;
 import bibliotechgomeztorugnosemestreianno2018.Library;
 import bibliotechgomeztorugnosemestreianno2018.Student;
 import com.sun.glass.events.KeyEvent;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -205,14 +208,22 @@ public class signUpMaterial extends javax.swing.JFrame {
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // TODO add your handling code here:
         //Get the info of the fields
+        logIn allObject = null;
+        try {
+            allObject = new logIn();
+        } catch (IOException ex) {
+            Logger.getLogger(signUpMaterial.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        Library lb = allObject.biblioTech;
+        
         String title = jTextField1.getText();
         String edition = jTextField2.getText();
         String ISBN = jTextField3.getText();
-        int ID = id;
+        int ID = lb.maxBooks() + 1;
         Book newBook = new Book(title,edition,ISBN,ID,"free","*","*");
         //Acess the global object and add new Book 
-        logIn allObject = new logIn();
-        Library lb = allObject.biblioTech;
+        
+        
         lb.addAsset(newBook);
         //Set a new id
         setId(ID+1);
@@ -246,13 +257,20 @@ public class signUpMaterial extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
         //Get the info of the fields
+        logIn allObject = null;
+        try {
+            allObject = new logIn();
+        } catch (IOException ex) {
+            Logger.getLogger(signUpMaterial.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        Library lb = allObject.biblioTech;
+        
         int code = Integer.parseInt(jTextField4.getText());
         String model= jTextField5.getText();
-        int ID = id;
+        int ID = lb.maxAV() + 1;
         Audiovisual newVisual = new Audiovisual(code,model,ID,"free","*","*");
         //Acess the global object and add new Audiovisual
-        logIn allObject = new logIn();
-        Library lb = allObject.biblioTech;
+        
         lb.addAsset(newVisual);
         //Set a new id
         setId(ID+1);

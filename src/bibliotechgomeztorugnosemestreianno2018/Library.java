@@ -146,4 +146,26 @@ public class Library {
             return false;
         }
     }
+    
+    public int maxBooks(){
+        return bookFile.fileSize();
+    }
+    
+    public int maxAV(){
+        return avFile.fileSize();
+    }
+    
+    public boolean updateAsset(Asset myAsset){
+        try{
+            if(myAsset instanceof Book){
+                bookFile.putValue(myAsset.getID(), (Book) myAsset);
+            }
+            else{
+                avFile.putValue(myAsset.getID(), (Audiovisual) myAsset);
+            }
+            return true;
+        }catch(IOException e){
+            return false;
+        }
+    }
 }
