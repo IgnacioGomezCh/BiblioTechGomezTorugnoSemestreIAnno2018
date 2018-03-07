@@ -33,7 +33,17 @@ public class lending extends javax.swing.JFrame {
     DefaultTableModel model11 = new DefaultTableModel();
     DefaultTableModel model12 = new DefaultTableModel();
     DefaultTableModel model13 = new DefaultTableModel();
+    DefaultTableModel modelreturn = new DefaultTableModel();
+    public static int idn ;
+    public static String type;
+    public static void setType(String n) {
+        lending.type = n;
+    }
+    public static void setId(int id) {
+        lending.idn = id;
+    }
     private int selection;
+    
     /**
      * Creates new form lending
      */
@@ -60,12 +70,20 @@ public class lending extends javax.swing.JFrame {
         model13.addColumn("Edition");
         model13.addColumn("ISBN");
         
+        model1.addColumn("ID");
         model1.addColumn("Code");
         model1.addColumn("Model");
         this.jTable2.setModel(model1);
         
+        model11.addColumn("ID");
         model11.addColumn("Code");
         model11.addColumn("Model");
+        
+        modelreturn.addColumn("ID");
+        modelreturn.addColumn("Student");
+        modelreturn.addColumn("LentDate");
+        modelreturn.addColumn("ReturnDate");
+        modelreturn.addColumn("Name");
         
         
         logIn allObject = new logIn();
@@ -75,7 +93,7 @@ public class lending extends javax.swing.JFrame {
         Iterator <Asset> it =array.iterator();
         while(it.hasNext()){
             Asset e = it.next();
-            if(e instanceof Book){
+            if(e instanceof Book && "free".equals(e.getState())){
                 String [] add = new String[4];
                 add[0]=String.valueOf(e.getID());
                 add[1]=((Book) e).getTitle();
@@ -84,10 +102,11 @@ public class lending extends javax.swing.JFrame {
             
                 model.addRow(add);
             }
-            if(e instanceof Audiovisual){
-                String [] add1 = new String[2];
-                add1[0]=String.valueOf(((Audiovisual) e).getCode());
-                add1[1]=((Audiovisual) e).getModel();
+            if(e instanceof Audiovisual && "free".equals(e.getState())){
+                String [] add1 = new String[3];
+                add1[0]=String.valueOf(e.getID());
+                add1[1]=String.valueOf(((Audiovisual) e).getCode());
+                add1[2]=((Audiovisual) e).getModel();
                 model1.addRow(add1);
             
             }
@@ -95,18 +114,57 @@ public class lending extends javax.swing.JFrame {
         }
         jTable1.addMouseListener(new MouseAdapter() 
         {
+            @Override
             public void mouseClicked(MouseEvent e){
                 int row = jTable1.rowAtPoint(e.getPoint());
                 int column = jTable1.columnAtPoint(e.getPoint());
                 if((row>-1)&&(column>-1)){
                     TableModel model123 = jTable1.getModel();
                     selection = Integer.valueOf(String.valueOf(model123.getValueAt(row, column)));
-                    JOptionPane.showMessageDialog(null,model123.getValueAt(row, column));
+                    setId(selection);
+                    setType("Book");
+                    //JOptionPane.showMessageDialog(null,model123.getValueAt(row, column));
+                    
+                    doLent window22 = new doLent();
+                    
+                
+                    window22.setTitle("Lent");
+                    window22.setLocationRelativeTo(null);
+                    window22.setVisible(true); 
                 }
             }
 
 
         });
+        
+        jTable2.addMouseListener(new MouseAdapter() 
+        {
+            @Override
+            public void mouseClicked(MouseEvent e){
+                int row = jTable2.rowAtPoint(e.getPoint());
+                int column = jTable2.columnAtPoint(e.getPoint());
+                if((row>-1)&&(column>-1)){
+                    TableModel model123 = jTable2.getModel();
+                    selection = Integer.valueOf(String.valueOf(model123.getValueAt(row, column)));
+                    setId(selection);
+                    setType("Audiovisual");
+                    //JOptionPane.showMessageDialog(null,model123.getValueAt(row, column));
+                    
+                    doLent window22 = new doLent();
+                    
+                
+                    window22.setTitle("Lent");
+                    window22.setLocationRelativeTo(null);
+                    window22.setVisible(true); 
+                }
+            }
+
+
+        });
+        
+        
+        
+        
         
         /*
         ArrayList<Asset> myList = new ArrayList();
@@ -121,7 +179,32 @@ public class lending extends javax.swing.JFrame {
             }
         }
         */
-        test();
+        //test();
+        
+        jTable3.addMouseListener(new MouseAdapter() 
+        {
+            @Override
+            public void mouseClicked(MouseEvent e){
+                int row = jTable3.rowAtPoint(e.getPoint());
+                int column = jTable3.columnAtPoint(e.getPoint());
+                if((row>-1)&&(column>-1)){
+                    TableModel model123 = jTable3.getModel();
+                    selection = Integer.valueOf(String.valueOf(model123.getValueAt(row, column)));
+                    setId(selection);
+                    setType("Book");
+                    //JOptionPane.showMessageDialog(null,model123.getValueAt(row, column));
+                    
+                    doReturn window22 = new doReturn();
+                    
+                
+                    window22.setTitle("Return");
+                    window22.setLocationRelativeTo(null);
+                    window22.setVisible(true); 
+                }
+            }
+
+
+        });
         
     }
     
@@ -170,8 +253,9 @@ public class lending extends javax.swing.JFrame {
         jTable2 = new javax.swing.JTable();
         jButton5 = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
-        jScrollPane3 = new javax.swing.JScrollPane();
-        jList3 = new javax.swing.JList<>();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jTable3 = new javax.swing.JTable();
+        jButton6 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -269,7 +353,7 @@ public class lending extends javax.swing.JFrame {
                     .addComponent(jButton2))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 64, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 89, Short.MAX_VALUE)
                 .addComponent(jButton4)
                 .addContainerGap())
         );
@@ -345,19 +429,32 @@ public class lending extends javax.swing.JFrame {
                     .addComponent(jButton3))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 41, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 66, Short.MAX_VALUE)
                 .addComponent(jButton5)
                 .addGap(23, 23, 23))
         );
 
         jTabbedPane1.addTab("AudioVisual", jPanel2);
 
-        jList3.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
-            public int getSize() { return strings.length; }
-            public String getElementAt(int i) { return strings[i]; }
+        jTable3.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane2.setViewportView(jTable3);
+
+        jButton6.setText("Get Values");
+        jButton6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton6ActionPerformed(evt);
+            }
         });
-        jScrollPane3.setViewportView(jList3);
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -365,15 +462,20 @@ public class lending extends javax.swing.JFrame {
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 354, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(92, Short.MAX_VALUE))
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 436, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jButton6)
+                .addContainerGap())
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGap(20, 20, 20)
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(156, Short.MAX_VALUE))
+                .addComponent(jButton6)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 193, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(109, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Return", jPanel3);
@@ -458,9 +560,10 @@ public class lending extends javax.swing.JFrame {
                 Asset e = it.next();
                 if(e instanceof Audiovisual){
                     if(String.valueOf(((Audiovisual) e).getCode()) == null ? jTextField3.getText() == null : String.valueOf(((Audiovisual) e).getCode()).equals(jTextField3.getText())){
-                        String [] add1 = new String[2];
-                        add1[0]=String.valueOf(((Audiovisual) e).getCode());
-                        add1[1]=((Audiovisual) e).getModel();
+                        String [] add1 = new String[3];
+                        add1[0]=String.valueOf(e.getID());
+                        add1[1]=String.valueOf(((Audiovisual) e).getCode());
+                        add1[2]=((Audiovisual) e).getModel();
                         model11.addRow(add1);
                     }
                     
@@ -569,6 +672,54 @@ public class lending extends javax.swing.JFrame {
         
     }//GEN-LAST:event_jButton2ActionPerformed
 
+    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
+        // TODO add your handling code here:
+        try {                                         
+            // TODO add your handling code here:
+            modelreturn.setRowCount(0);
+            this.jTable3.setModel(modelreturn);
+            logIn allObject = null;
+            try {
+                allObject = new logIn();
+            } catch (IOException ex) {
+                Logger.getLogger(lending.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            Library lb = allObject.biblioTech;
+            ArrayList<Asset> array = lb.getAssetList();
+            
+            Iterator <Asset> it =array.iterator();
+            while(it.hasNext()){
+                Asset e = it.next();
+                if(e instanceof Book && "lent".equals(e.getState()) && e.getFK_student().equals(allObject.currentId)){
+
+                    String [] add = new String[5];
+                    add[0]=String.valueOf(e.getID());
+                    add[1]=e.getFK_student();
+                    add[2]= e.getLentDate();
+                    add[3]= e.getReturnDate();
+                    add[4]=((Book) e).getTitle();
+                        
+                    modelreturn.addRow(add);
+                }
+                if(e instanceof Audiovisual && "lent".equals(e.getState())&& e.getFK_student().equals(allObject.currentId)){
+                    String [] add = new String[5];
+                    add[0]=String.valueOf(e.getID());
+                    add[1]=e.getFK_student();
+                    add[2]= e.getLentDate();
+                    add[3]= e.getReturnDate();
+                    add[4]= ((Audiovisual) e).getModel();
+                        
+                    modelreturn.addRow(add);
+                
+                }
+                
+            }
+            
+        } catch (IOException ex) {
+            Logger.getLogger(lending.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_jButton6ActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
@@ -576,19 +727,20 @@ public class lending extends javax.swing.JFrame {
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
+    private javax.swing.JButton jButton6;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JList<String> jList3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTable jTable1;
     private javax.swing.JTable jTable2;
+    private javax.swing.JTable jTable3;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField2;
     private javax.swing.JTextField jTextField3;
