@@ -16,30 +16,17 @@ import java.util.List;
  */
 public class BookFile {
     //atributos
-    /**
-     * 
-     */
     public java.io.RandomAccessFile randomAccessFile;
     private int regsQuantity;//me indica la cantidad de registros
     private int regSize;
     private String myFilePath;
     
     //constructor
-    /**
-     * 
-     * @param file
-     * @throws IOException
-     */
     public BookFile(File file) throws IOException{
         start(file);
     }
     
-    /**
-     * instancia el random access file y coloca el valor
-     * de mis variables privadas
-     * @param file
-     * @throws IOException
-     */
+    //instancia el random access file y coloca el valor de mis variables privadas
     private void start(File file) throws IOException{
         //almaceno la ruta
         myFilePath = file.getPath();
@@ -62,30 +49,20 @@ public class BookFile {
         }
     }//fin start
     
-    /**
-     * cierra la conexion de mi programa con el archivo que
-     * estoy manipulando
-     * @throws IOException
-     */
+    //cierra la conexion de mi programa con el archivo que estoy manipulando
+
     public void close() throws IOException{
         randomAccessFile.close();
     }
     
-    /**
-     * indica la cantidad de registros del archivo actual
-     * @return cantidad de registros
-     */
+    //indica la cantidad de registros del archivo actual
+
     public int fileSize(){
         return regsQuantity;
     }
     
-    /**
-     * inserta un nuevo registro pero en una posicion existente
-     * @param position
-     * @param myBook
-     * @return
-     * @throws IOException
-     */
+    //inserta un nuevo registro pero en una posicion existente
+
     public boolean putValue(int position, Book myBook) throws IOException{
         //una pequenna validacion antes de insertar
         if(position >= 0 && position <= regsQuantity){
@@ -116,13 +93,8 @@ public class BookFile {
         
     }//fin metodo
     
-    /**
-     * agrega un registro nuevo pero al final del archivo, por esa razon
-     * se incrementa la cantidad de registros
-     * @param person
-     * @return
-     * @throws IOException
-     */
+    //agrega un registro nuevo pero al final del archivo, por esa razon se incrementa la cantidad de registros
+
     public boolean addEndRecord(Book myBook) throws IOException{
         //insertar al final del archivo
         boolean success = putValue(regsQuantity, myBook);
@@ -134,12 +106,8 @@ public class BookFile {
     }
     
     
-    /**
-     * obtiene un registro de una persona en la posicion indicada
-     * @param position
-     * @return objeto de tipo Person con los datos del registro de esa persona
-     * @throws IOException
-     */
+    //obtiene un registro de una persona en la posicion indicada
+
     public Book getBook(int position) throws IOException{
         //validacion de la posicion
         if(position >= 0 && position <= regsQuantity){
@@ -172,13 +140,10 @@ public class BookFile {
             System.err.println("6001 position is out of bounds");
             return null;
         }
-    }//fin de metodo
+    }
     
-    /**
-     * consulta todos los registros de mi archivo
-     * @return una lista de objetos tipo Person
-     * @throws IOException
-     */
+    //consulta todos los registros de mi archivo
+
     public ArrayList<Book> getAllBooks() throws IOException{
         
         //variables a retornar

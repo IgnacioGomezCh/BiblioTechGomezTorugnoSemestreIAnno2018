@@ -22,21 +22,11 @@ public class StudentFile {
     private String myFilePath;
     
     //constructor
-    /**
-     * 
-     * @param file
-     * @throws IOException
-     */
     public StudentFile(File file) throws IOException{
         start(file);
     }
     
-    /**
-     * instancia el random access file y coloca el valor
-     * de mis variables privadas
-     * @param file
-     * @throws IOException
-     */
+    //instancia el random access file y coloca el valor de mis variables privadas
     private void start(File file) throws IOException{
         //almaceno la ruta
         myFilePath = file.getPath();
@@ -57,32 +47,21 @@ public class StudentFile {
             //necesitamos indicar cuantos registros tiene el archivo
             this.regsQuantity = (int)Math.ceil((double)randomAccessFile.length() / (double)regSize);
         }
-    }//fin start
+    }
     
-    /**
-     * cierra la conexion de mi programa con el archivo que
-     * estoy manipulando
-     * @throws IOException
-     */
+    //cierra la conexion de mi programa con el archivo que estaba abierto
+     
     public void close() throws IOException{
         randomAccessFile.close();
     }
     
-    /**
-     * indica la cantidad de registros del archivo actual
-     * @return cantidad de registros
-     */
+    //indica la cantidad de registros del archivo actual
+
     public int fileSize(){
         return regsQuantity;
     }
     
-    /**
-     * inserta un nuevo registro pero en una posicion existente
-     * @param position
-     * @param myStudent
-     * @return
-     * @throws IOException
-     */
+    //inserta un nuevo registro pero en una posicion existente
     public boolean putValue(int position, Student myStudent) throws IOException{
         //una pequenna validacion antes de insertar
         if(position >= 0 && position <= regsQuantity){
@@ -106,15 +85,10 @@ public class StudentFile {
                 return false;
         }
         
-    }//fin metodo
+    }
     
-    /**
-     * agrega un registro nuevo pero al final del archivo, por esa razon
-     * se incrementa la cantidad de registros
-     * @param person
-     * @return
-     * @throws IOException
-     */
+    //agrega un registro nuevo pero al final del archivo, por esa razon se incrementa la cantidad de registros
+
     public boolean addEndRecord(Student myStudent) throws IOException{
         //insertar al final del archivo
         boolean success = putValue(regsQuantity, myStudent);
@@ -126,12 +100,8 @@ public class StudentFile {
     }
     
     
-    /**
-     * obtiene un registro de una persona en la posicion indicada
-     * @param position
-     * @return objeto de tipo Person con los datos del registro de esa persona
-     * @throws IOException
-     */
+    //obtiene un registro de una persona en la posicion indicada
+
     public Student getStudent(int position) throws IOException{
         //validacion de la posicion
         if(position >= 0 && position <= regsQuantity){
@@ -160,13 +130,9 @@ public class StudentFile {
             System.err.println("6001 position is out of bounds");
             return null;
         }
-    }//fin de metodo
+    }
     
-    /**
-     * consulta todos los registros de mi archivo
-     * @return una lista de objetos tipo Person
-     * @throws IOException
-     */
+    //consulta todos los registros de mi archivo
     public ArrayList<Student> getAllStudents() throws IOException{
         
         //variables a retornar
@@ -182,7 +148,7 @@ public class StudentFile {
         }
         
         return students;
-    }//fin metodo
+    }
     
     
     public boolean deleteRecord(String title) throws IOException{
