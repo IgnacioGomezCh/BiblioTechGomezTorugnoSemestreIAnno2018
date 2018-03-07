@@ -61,30 +61,8 @@ public class Student {
         this.pedingFine = pedingFine;
     }
     
-        //Class methods
-    public boolean bookAsset(Asset myAsset){
-        try{
-            //assets.add(myAsset);
-            return true;
-        }catch(Exception e){
-            return false;
-        }
-    }
-    
-    public boolean returnAsset(Asset myAsset){
-        try{
-            //assets.remove(myAsset);
-            return true;
-        }catch(Exception e){
-            return false;
-        }
-    }
-    
     public int size(){
-        //tamanno de las variables en bytes
-        //LONG: necesita dos bytes
-        //String: cada caracter necesita dos bytes de espacio,
-        //esto si se utiliza UTF
+        //tamanno de las variables en bytes para validacion en archivos de overflow de registro
         return this.getName().length() * 2 
                 + this.getID().length() * 2
                 + this.getPassword().length() * 2 + 8;

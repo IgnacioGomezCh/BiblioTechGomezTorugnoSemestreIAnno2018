@@ -91,10 +91,14 @@ public class Library {
         this.name = name;
     }
 
+    //Carga la lista de assets de el archivo de memoria.
+    //Hace una union entre libros y audiovisual
     public ArrayList<Asset> getAssetList() throws IOException {
         ArrayList<Asset> myList = new ArrayList();
         ArrayList<Audiovisual> myAV = new ArrayList();
         ArrayList<Book> myBooks = new ArrayList();
+        
+        //Carga ambas listas de memoria
         myBooks = bookFile.getAllBooks();
         myAV = avFile.getAllAudiovisuals();
         
@@ -109,7 +113,8 @@ public class Library {
     public void setAssetList(ArrayList<Asset> assetList){
         this.assetList = assetList;
     }
-
+    
+    //Carga la lista de estudiantes de el archivo de memoria.
     public ArrayList<Student> getStudentList() throws IOException {
         ArrayList<Student> myList = new ArrayList();
         myList = studentFile.getAllStudents();
@@ -120,9 +125,10 @@ public class Library {
         this.studentList = studentList;
     }
     
-    //Methods
+    //Annade un asset al final del archivo 
     public boolean addAsset(Asset myAsset){
         try{
+            //primero busca que tipo de asset 
             assetList.add(myAsset);
             if(myAsset instanceof Book){
                 bookFile.addEndRecord((Book) myAsset);
@@ -137,6 +143,7 @@ public class Library {
         }
     }
     
+    //Annade un estudiante al final del archivo 
     public boolean addStudent(Student myStudent){
         try{
             studentList.add(myStudent);
@@ -147,16 +154,20 @@ public class Library {
         }
     }
     
+    //Retorna cantidad de registros en el archivo de libros
     public int maxBooks(){
         return bookFile.fileSize();
     }
     
+    //Retorna cantidad de registros en el archivo de audiovisual
     public int maxAV(){
         return avFile.fileSize();
     }
     
+    //Metodo que actualiza informacion de los assets
     public boolean updateAsset(Asset myAsset){
         try{
+            //El instanceof se usa para ver si es libro o audiovisual
             if(myAsset instanceof Book){
                 bookFile.putValue(myAsset.getID()-1, (Book) myAsset);
             }

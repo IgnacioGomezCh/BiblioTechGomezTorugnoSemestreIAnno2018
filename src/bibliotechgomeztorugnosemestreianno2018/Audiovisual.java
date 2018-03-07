@@ -50,10 +50,7 @@ public class Audiovisual extends Asset{
     }
     
     public int size(){
-        //tamanno de las variables en bytes
-        //LONG: necesita dos bytes
-        //String: cada caracter necesita dos bytes de espacio,
-        //esto si se utiliza UTF
+        //tamanno de las variables en bytes para validacion en archivos de overflow de registro
         return this.getModel().length() * 2 
                 + this.getState().length() * 2 
                 + this.getLentDate().length() * 2

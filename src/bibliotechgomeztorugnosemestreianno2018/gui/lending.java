@@ -653,7 +653,7 @@ public class lending extends javax.swing.JFrame {
                     String char1 = (jTextField2.getText()).toUpperCase();
                     String char2 = (jTextField2.getText()).toLowerCase();
                     String firstChar= String.valueOf(((Book) e).getTitle().charAt(0));
-                    if((char1 == null ? firstChar == null : char1.equals(firstChar)) || char2==firstChar){
+                    if((char1 == null ? firstChar == null : char1.equals(firstChar)) || (char2 == null ? firstChar == null : char2.equals(firstChar))){
                         String [] add = new String[4];
                         add[0]=String.valueOf(e.getID());
                         add[1]=((Book) e).getTitle();

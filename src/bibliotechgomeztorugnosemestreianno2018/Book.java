@@ -56,21 +56,8 @@ public class Book extends Asset{
         this.ISBN = ISBN;
     }
     
-    public String toString(){
-        return "Name: " + this.title + " - ID: " +
-                this.getID();
-    }
-    
-    /**
-     * metodo que me retorna el tamanno en bytes del objeto
-     * actual
-     * @return
-     */
     public int size(){
-        //tamanno de las variables en bytes
-        //LONG: necesita dos bytes
-        //String: cada caracter necesita dos bytes de espacio,
-        //esto si se utiliza UTF
+        //tamanno de las variables en bytes para validacion en archivos de overflow de registro
         return this.getTitle().length() * 2 
                 + this.getEdition().length() * 2
                 + this.getState().length() * 2 
